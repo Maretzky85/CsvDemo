@@ -1,4 +1,5 @@
 <div class="container mt-5" id="main_table">
+<!--  Header table -->
   <div class="row table-primary">
     <div class="col mb-1">
       First Name
@@ -13,10 +14,11 @@
       Phone number
     </div>
     <div class="col mb-1">
-      <button class="badge badge-danger">Delete All</button>
+      <button class="badge badge-danger" (click)="data.deleteAllUsers()">Delete All</button>
     </div>
   </div>
-  <div *ngFor="let user of users$ | async">
+<!--  Data table -->
+  <div *ngFor="let user of data.users$ | async">
     <div class="row table-secondary table-bordered" id="{{user.id}}">
       <div class="col">
         {{user.firstName}}
@@ -31,8 +33,28 @@
         {{user.phoneNo ? user.phoneNo : ''}}
       </div>
       <div class="col">
-        <button class="badge badge-danger" (click)="deleteUserById(user.id)">Delete</button>
+        <button class="badge badge-danger" (click)="data.deleteUserById(user.id)">Delete</button>
       </div>
     </div>
   </div>
+<!--  Footer table -->
+  <div class="row table-info">
+    <div class="col">
+      Page: {{data.page.pageable.pageNumber}}
+    </div>
+    <div class="col">
+      Total pages: {{data.page.totalPages}}
+    </div>
+    <div class="col">
+      Total entries: {{data.page.totalElements}}
+    </div>
+    <div class="col">
+
+    </div>
+    <div class="col">
+
+    </div>
+  </div>
+
+
 </div>

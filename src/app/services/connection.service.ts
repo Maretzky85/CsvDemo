@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {PageableResponse, User} from '../components/models/pageableResponse';
@@ -19,7 +19,22 @@ export class ConnectionService {
     return this.http.get<PageableResponse>(this.address + 'users/', {headers: this.headers});
   }
 
+  search(search: string): Observable<User[]> {
+    return this.http.get<User[]>(this.address + '/search/?search=' + search);
+  }
+
   deleteUserById(userId: string): Observable<User> {
-    return this.http.post<User>(this.address + 'delete/?id=' + userId, {headers: this.headers});
+    return this.http.post<User>(this.address + 'delete/' + userId, {headers: this.headers});
+  }
+
+  deleteAllUsers() {
+    return this.http.post(this.address + 'deleteAll', {headers: this.headers});
+  }
+
+  uploadFile(formData: FormData) {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+    return this.http.post(this.address + 'upload/', formData, {headers});
   }
 }

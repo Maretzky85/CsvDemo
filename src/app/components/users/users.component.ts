@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ConnectionService} from '../../services/connection.service';
-import {Observable} from 'rxjs';
-import {User} from '../models/pageableResponse';
-import {map} from 'rxjs/operators';
+import {DataService} from '../../services/data.service';
 
 @Component({
   selector: 'app-users',
@@ -11,19 +8,9 @@ import {map} from 'rxjs/operators';
 })
 export class UsersComponent implements OnInit {
 
-  constructor(public connection: ConnectionService) { }
-
-  users$: Observable<User[]>;
+  constructor(public data: DataService) { }
 
   ngOnInit() {
-    this.users$ = this.connection.getUsers().pipe(map(value => value.content));
-  }
-
-  deleteUserById(id: number) {
-    this.connection.deleteUserById(id.toString()).subscribe((user: User) => {
-      console.log(user);
-      const element = document.getElementById(id.toString());
-      element.parentNode.removeChild(element);
-    });
+    this.data.getUsers();
   }
 }
