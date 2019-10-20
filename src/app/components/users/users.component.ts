@@ -11,7 +11,7 @@ import {map} from 'rxjs/operators';
 })
 export class UsersComponent implements OnInit {
 
-  constructor(private connection: ConnectionService) { }
+  constructor(public connection: ConnectionService) { }
 
   users$: Observable<User[]>;
 
@@ -19,4 +19,11 @@ export class UsersComponent implements OnInit {
     this.users$ = this.connection.getUsers().pipe(map(value => value.content));
   }
 
+  deleteUserById(id: number) {
+    this.connection.deleteUserById(id.toString()).subscribe((user: User) => {
+      console.log(user);
+      const element = document.getElementById(id.toString());
+      element.parentNode.removeChild(element);
+    });
+  }
 }

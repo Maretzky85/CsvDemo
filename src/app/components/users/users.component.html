@@ -1,5 +1,38 @@
-<div class="container mt-5">
+<div class="container mt-5" id="main_table">
+  <div class="row table-primary">
+    <div class="col mb-1">
+      First Name
+    </div>
+    <div class="col mb-1">
+      Last Name
+    </div>
+    <div class="col mb-1">
+      Birth Date
+    </div>
+    <div class="col mb-1">
+      Phone number
+    </div>
+    <div class="col mb-1">
+      <button class="badge badge-danger">Delete All</button>
+    </div>
+  </div>
   <div *ngFor="let user of users$ | async">
-    {{user.firstName}} {{user.lastName}} {{user.birthDate}} {{user.phoneNo ? user.phoneNo : ''}}
+    <div class="row table-secondary table-bordered" id="{{user.id}}">
+      <div class="col">
+        {{user.firstName}}
+      </div>
+      <div class="col">
+        {{user.lastName}}
+      </div>
+      <div class="col">
+        {{user.birthDate}}
+      </div>
+      <div class="col">
+        {{user.phoneNo ? user.phoneNo : ''}}
+      </div>
+      <div class="col">
+        <button class="badge badge-danger" (click)="deleteUserById(user.id)">Delete</button>
+      </div>
+    </div>
   </div>
 </div>

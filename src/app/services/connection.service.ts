@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {PageableResponse} from '../components/models/pageableResponse';
+import {PageableResponse, User} from '../components/models/pageableResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +17,9 @@ export class ConnectionService {
 
   getUsers(): Observable<PageableResponse> {
     return this.http.get<PageableResponse>(this.address + 'users/', {headers: this.headers});
+  }
+
+  deleteUserById(userId: string): Observable<User> {
+    return this.http.post<User>(this.address + 'delete/?id=' + userId, {headers: this.headers});
   }
 }
