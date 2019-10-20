@@ -38,4 +38,8 @@ export class ConnectionService {
     headers.append('Accept', 'application/json');
     return this.http.post(this.address + 'upload/', formData, {headers});
   }
+
+  getOldestUser(): Observable<User> {
+    return this.http.get<User>(this.address + 'oldest', {headers: this.headers});
+  }
 }

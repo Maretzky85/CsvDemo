@@ -1,17 +1,24 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
-  <a class="navbar-brand" (click)="data.getUsers()" href="#">CsvDemoApp</a>
-  <button class="navbar-toggler hidden-sm-up" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
+  <a (click)="data.getUsers()" class="navbar-brand" href="#">CsvDemoApp</a>
+  <button (click)="isNavbarCollapsed = !isNavbarCollapsed" aria-controls="navbarsDefault" aria-expanded="false"
+          aria-label="Toggle navigation" class="navbar-toggler hidden-sm-up" data-target="#navbarsDefault"
+          type="button">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown" ngbDropdown>
-        <a class="nav-link dropdown-toggle" id="id01" href="#" ngbDropdownToggle>Options</a>
-        <div class="dropdown-menu" aria-labelledby="id01" ngbDropdownMenu>
-          <input type="file" id="file_input" (change)="fileChange($event)" placeholder="Upload file" accept=".csv">
-          <input #search placeholder="search" (keyup.enter)="data.search(search.value)">
+    <div class="row">
+      <div class="col">
+        <div class="d-inline-block" ngbDropdown>
+          <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>Page size</button>
+          <div aria-labelledby="dropdownBasic1" ngbDropdownMenu>
+            <button (click)="data.setPageSize(5)" ngbDropdownItem>5</button>
+            <button (click)="data.setPageSize(10)" ngbDropdownItem>10</button>
+            <button (click)="data.setPageSize(20)" ngbDropdownItem>20</button>
+          </div>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
+  <input (change)="fileChange($event)" accept=".csv" id="file_input" placeholder="Upload file" type="file">
+  <input #search (keyup.enter)="data.search(search.value)" class="mr-2" placeholder="search">
 </nav>

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DataService} from '../../services/data.service';
-import {HttpParams} from '@angular/common/http';
 
 @Component({
   selector: 'app-topbar',
@@ -11,7 +10,8 @@ export class TopbarComponent implements OnInit {
 
   isNavbarCollapsed = true;
 
-  constructor(public data: DataService) { }
+  constructor(public data: DataService) {
+  }
 
   ngOnInit() {
   }
@@ -24,7 +24,7 @@ export class TopbarComponent implements OnInit {
       formData.append('file', file, file.name);
       this.data.uploadFile(formData).subscribe(value => {
         event.target.files = null;
-        this.data.getUsers();
+        this.data.getUsers(this.data.getCurrentInputParams());
       }, error => {
         alert('error uploading file');
       });

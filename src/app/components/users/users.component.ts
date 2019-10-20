@@ -12,5 +12,6 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.data.getUsers();
+    this.data.getOldest();
   }
 }

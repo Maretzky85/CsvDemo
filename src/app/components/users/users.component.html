@@ -2,14 +2,15 @@
 
   <!-- Navigation element -->
   <div class="row">
-    <div class="col mb-2" *ngIf="data.page">
-        <button *ngIf="!data.page.first" class="badge badge-info float-left"
-        (click)="data.prevPage()">Prev</button>
+    <div *ngIf="data.page" class="col mb-2">
+      <button (click)="data.prevPage()" *ngIf="!data.page.first"
+              class="badge badge-info float-left">Prev
+      </button>
 
-        <button *ngIf="!data.page.last &&
-            data.page.totalPages > data.page.pageable.pageNumber" class="badge badge-info float-right"
-        (click)="data.nextPage()">Next
-        </button>
+      <button (click)="data.nextPage()" *ngIf="!data.page.last &&
+            data.page.totalPages > data.page.pageable.pageNumber"
+              class="badge badge-info float-right">Next
+      </button>
     </div>
   </div>
 
@@ -52,7 +53,7 @@
     </div>
   </div>
   <!--  Footer table -->
-  <div class="row table-info">
+  <div *ngIf="data.page" class="row table-info">
     <div class="col">
       Page: {{data.page.pageable.pageNumber + 1}}
     </div>
@@ -67,6 +68,31 @@
     </div>
     <div class="col">
 
+    </div>
+  </div>
+  <!-- oldest member -->
+  <div *ngIf="data.page">
+    <div class="row table-light mt-3">
+      <div class="col">
+        Oldest member
+      </div>
+    </div>
+    <div class="row table-warning">
+      <div class="col">
+        {{(data.oldestUser$ | async).firstName }}
+      </div>
+      <div class="col">
+        {{(data.oldestUser$ | async).lastName}}
+      </div>
+      <div class="col">
+        {{(data.oldestUser$ | async).age}}
+      </div>
+      <div class="col">
+        {{(data.oldestUser$ | async).phoneNo}}
+      </div>
+      <div class="col">
+        <button class="badge badge-info" (click)="data.getOldest()">refresh</button>
+      </div>
     </div>
   </div>
 

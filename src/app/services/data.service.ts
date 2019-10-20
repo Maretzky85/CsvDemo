@@ -11,14 +11,21 @@ export class DataService {
 
   users$: Observable<User[]>;
   page: PageableResponse;
+  oldestUser$: Observable<User>;
 
   constructor(private connection: ConnectionService) { }
+
+  getCurrentInputParams() {
+    return {
+      page: this.page ? this.page.pageable.pageNumber : 0,
+      size: this.page ? this.page.size : 5
+    };
+  }
 
   getUsers(inputParams?) {
     this.users$ = this.connection.getUsers(inputParams)
       .pipe(map(value => {
         this.page = value;
-        console.log(this.page.content);
         return value.content; }
       ));
   }
@@ -57,6 +64,7 @@ export class DataService {
         };
     if (!this.page.first) {
       inputParams.page = this.page.pageable.pageNumber - 1;
+      inputParams.size = this.page.size;
     }
     this.getUsers(inputParams);
   }
@@ -68,7 +76,20 @@ export class DataService {
     };
     if (!this.page.last) {
       inputParams.page = this.page.pageable.pageNumber + 1;
+      inputParams.size = this.page.size;
     }
     this.getUsers(inputParams);
+  }
+
+  setPageSize(pageSize: number) {
+    const inputParams = {
+      page: 0,
+      size: pageSize
+    };
+    this.getUsers(inputParams);
+  }
+
+  getOldest() {
+    this.oldestUser$ = this.connection.getOldestUser();
   }
 }
