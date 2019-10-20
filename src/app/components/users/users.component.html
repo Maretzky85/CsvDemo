@@ -71,7 +71,7 @@
     </div>
   </div>
   <!-- oldest member -->
-  <div *ngIf="data.page">
+  <div *ngIf="data.oldestUser$ | async as user">
     <div class="row table-light mt-3">
       <div class="col">
         Oldest member
@@ -79,22 +79,20 @@
     </div>
     <div class="row table-warning">
       <div class="col">
-        {{(data.oldestUser$ | async).firstName }}
+        {{user.firstName }}
       </div>
       <div class="col">
-        {{(data.oldestUser$ | async).lastName}}
+        {{user.lastName}}
       </div>
       <div class="col">
-        {{(data.oldestUser$ | async).age}}
+        {{user.age}}
       </div>
       <div class="col">
-        {{(data.oldestUser$ | async).phoneNo}}
+        {{user.phoneNo}}
       </div>
       <div class="col">
-        <button class="badge badge-info" (click)="data.getOldest()">refresh</button>
+        <button (click)="data.getOldest()" class="badge badge-info">refresh</button>
       </div>
     </div>
   </div>
-
-
 </div>

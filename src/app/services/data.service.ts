@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ConnectionService} from './connection.service';
 import {Observable} from 'rxjs';
 import {PageableResponse, User} from '../components/models/pageableResponse';
@@ -13,7 +13,8 @@ export class DataService {
   page: PageableResponse;
   oldestUser$: Observable<User>;
 
-  constructor(private connection: ConnectionService) { }
+  constructor(private connection: ConnectionService) {
+  }
 
   getCurrentInputParams() {
     return {
@@ -25,8 +26,9 @@ export class DataService {
   getUsers(inputParams?) {
     this.users$ = this.connection.getUsers(inputParams)
       .pipe(map(value => {
-        this.page = value;
-        return value.content; }
+          this.page = value;
+          return value.content;
+        }
       ));
   }
 
@@ -49,7 +51,10 @@ export class DataService {
   }
 
   search(search: string) {
-    this.users$ = this.connection.search(search).pipe(value => {this.page = null; return value; });
+    this.users$ = this.connection.search(search).pipe(value => {
+      this.page = null;
+      return value;
+    });
   }
 
 
@@ -59,9 +64,9 @@ export class DataService {
 
   prevPage() {
     const inputParams = {
-          page: 0,
-          size: 5
-        };
+      page: 0,
+      size: 5
+    };
     if (!this.page.first) {
       inputParams.page = this.page.pageable.pageNumber - 1;
       inputParams.size = this.page.size;

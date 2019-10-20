@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from '../../services/data.service';
+import {ToastrService} from 'ngx-toastr';
+import {UploadResponse} from '../models/uploadResponse';
 
 @Component({
   selector: 'app-topbar',
@@ -9,8 +11,10 @@ import {DataService} from '../../services/data.service';
 export class TopbarComponent implements OnInit {
 
   isNavbarCollapsed = true;
+  uploadResponse: UploadResponse;
 
-  constructor(public data: DataService) {
+  constructor(public data: DataService,
+              private toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -22,7 +26,9 @@ export class TopbarComponent implements OnInit {
       const file: File = fileList[0];
       const formData: FormData = new FormData();
       formData.append('file', file, file.name);
-      this.data.uploadFile(formData).subscribe(value => {
+      this.data.uploadFile(formData).subscribe((value: UploadResponse) => {
+        console.log(this.uploadResponse);
+        this.toastr.success('total: ' + value.total + ' failed: ' + value.failed, 'Uploaded');
         event.target.files = null;
         this.data.getUsers(this.data.getCurrentInputParams());
       }, error => {
@@ -30,5 +36,4 @@ export class TopbarComponent implements OnInit {
       });
     }
   }
-
 }

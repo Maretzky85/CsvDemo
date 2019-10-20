@@ -12,7 +12,7 @@ export class ConnectionService {
   headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
   constructor(public http: HttpClient) {
-    this.address = 'http://localhost:8080/';
+    this.address = 'http://csvdemoapi.sikoramarek.com/';
   }
 
   getUsers(inputParams?): Observable<PageableResponse> {

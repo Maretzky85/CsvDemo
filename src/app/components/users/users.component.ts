@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DataService} from '../../services/data.service';
 
 @Component({
@@ -8,7 +8,8 @@ import {DataService} from '../../services/data.service';
 })
 export class UsersComponent implements OnInit {
 
-  constructor(public data: DataService) { }
+  constructor(public data: DataService) {
+  }
 
   ngOnInit() {
     this.data.getUsers();
