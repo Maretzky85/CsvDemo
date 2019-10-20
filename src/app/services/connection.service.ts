@@ -15,8 +15,9 @@ export class ConnectionService {
     this.address = 'http://localhost:8080/';
   }
 
-  getUsers(): Observable<PageableResponse> {
-    return this.http.get<PageableResponse>(this.address + 'users/', {headers: this.headers});
+  getUsers(inputParams?): Observable<PageableResponse> {
+    return this.http.get<PageableResponse>(this.address + 'users/',
+      {headers: this.headers, params: inputParams ? inputParams : null});
   }
 
   search(search: string): Observable<User[]> {

@@ -1,6 +1,20 @@
 <div class="container mt-5" id="main_table">
-<!--  Header table -->
-  <div class="row table-primary">
+
+  <!-- Navigation element -->
+  <div class="row">
+    <div class="col mb-2" *ngIf="data.page">
+        <button *ngIf="!data.page.first" class="badge badge-info float-left"
+        (click)="data.prevPage()">Prev</button>
+
+        <button *ngIf="!data.page.last &&
+            data.page.totalPages > data.page.pageable.pageNumber" class="badge badge-info float-right"
+        (click)="data.nextPage()">Next
+        </button>
+    </div>
+  </div>
+
+  <!--  Header table -->
+  <div class="row table-primary mt-2">
     <div class="col mb-1">
       First Name
     </div>
@@ -8,16 +22,16 @@
       Last Name
     </div>
     <div class="col mb-1">
-      Birth Date
+      Age
     </div>
     <div class="col mb-1">
       Phone number
     </div>
     <div class="col mb-1">
-      <button class="badge badge-danger" (click)="data.deleteAllUsers()">Delete All</button>
+      <button (click)="data.deleteAllUsers()" class="badge badge-danger">Delete All</button>
     </div>
   </div>
-<!--  Data table -->
+  <!--  Data table -->
   <div *ngFor="let user of data.users$ | async">
     <div class="row table-secondary table-bordered" id="{{user.id}}">
       <div class="col">
@@ -27,20 +41,20 @@
         {{user.lastName}}
       </div>
       <div class="col">
-        {{user.birthDate}}
+        {{user.age}}
       </div>
       <div class="col">
         {{user.phoneNo ? user.phoneNo : ''}}
       </div>
       <div class="col">
-        <button class="badge badge-danger" (click)="data.deleteUserById(user.id)">Delete</button>
+        <button (click)="data.deleteUserById(user.id)" class="badge badge-danger">Delete</button>
       </div>
     </div>
   </div>
-<!--  Footer table -->
+  <!--  Footer table -->
   <div class="row table-info">
     <div class="col">
-      Page: {{data.page.pageable.pageNumber}}
+      Page: {{data.page.pageable.pageNumber + 1}}
     </div>
     <div class="col">
       Total pages: {{data.page.totalPages}}

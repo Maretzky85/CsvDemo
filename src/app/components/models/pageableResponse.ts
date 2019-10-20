@@ -29,6 +29,7 @@ interface Sort {
 
 export interface User {
   id: number;
+  age: number;
   firstName: string;
   lastName: string;
   birthDate: string;

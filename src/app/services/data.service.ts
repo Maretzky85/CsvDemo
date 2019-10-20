@@ -14,10 +14,11 @@ export class DataService {
 
   constructor(private connection: ConnectionService) { }
 
-  getUsers() {
-    this.users$ = this.connection.getUsers()
+  getUsers(inputParams?) {
+    this.users$ = this.connection.getUsers(inputParams)
       .pipe(map(value => {
         this.page = value;
+        console.log(this.page.content);
         return value.content; }
       ));
   }
@@ -41,11 +42,33 @@ export class DataService {
   }
 
   search(search: string) {
-    this.users$ = this.connection.search(search).pipe(source => source);
+    this.users$ = this.connection.search(search).pipe(value => {this.page = null; return value; });
   }
 
 
   uploadFile(formData: FormData) {
     return this.connection.uploadFile(formData);
+  }
+
+  prevPage() {
+    const inputParams = {
+          page: 0,
+          size: 5
+        };
+    if (!this.page.first) {
+      inputParams.page = this.page.pageable.pageNumber - 1;
+    }
+    this.getUsers(inputParams);
+  }
+
+  nextPage() {
+    const inputParams = {
+      page: 0,
+      size: 5
+    };
+    if (!this.page.last) {
+      inputParams.page = this.page.pageable.pageNumber + 1;
+    }
+    this.getUsers(inputParams);
   }
 }
