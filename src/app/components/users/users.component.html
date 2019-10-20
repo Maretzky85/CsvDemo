@@ -1,0 +1,5 @@
+<div class="container mt-5">
+  <div *ngFor="let user of users$ | async">
+    {{user.firstName}} {{user.lastName}} {{user.birthDate}} {{user.phoneNo ? user.phoneNo : ''}}
+  </div>
+</div>
